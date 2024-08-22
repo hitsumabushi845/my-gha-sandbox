@@ -14,8 +14,7 @@ jobs:
     name: sandbox main
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include: fromJSON(${{ needs.yaml2json.outputs.result }})
+      matrix: fromJSON(${{ needs.yaml2json.outputs.result }})
 
     steps:
       - run: echo ${{ matrix.itemA }}
