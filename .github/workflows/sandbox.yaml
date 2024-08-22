@@ -1,0 +1,22 @@
+name: sandbox workflow
+
+on: workflow_dispatch
+
+jobs:
+
+  yaml2json:
+    uses: ./.github/workflows/reusable-yaml-to-json.yml
+    with:
+      yaml_file_path: .github/workflows/ext_file/sample.yaml
+
+  main:
+    needs: yaml2json
+    name: sandbox main
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: fromJSON(${{ needs.yaml2json.outputs.result }})
+
+    steps:
+      - run: echo ${{ matrix.itemA }}
+      - run: echo ${{ matrix.itemB }}

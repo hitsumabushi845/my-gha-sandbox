@@ -1,0 +1,32 @@
+name: Reusable Workflow(YAML -> JSON to use fromJSON function)
+
+on:
+  workflow_call:
+    inputs:
+      yaml_file_path:
+        required: true
+        type: string
+    outputs:
+      result:
+        value: ${{ jobs.main.outputs.result }}
+
+jobs:
+  main:
+    name: yaml to json
+    runs-on: ubuntu-latest
+
+    outputs:
+      result: ${{ steps.convert.outputs.data }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        id: convert
+        with:
+          path: ${{ inputs.yaml_file_path }}
+          from: 'yaml'
+          to: 'json'
