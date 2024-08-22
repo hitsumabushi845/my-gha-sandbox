@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      result: ${{ steps.convert.outputs.data }}
+      result: ${{ steps.convert.outputs.output }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +24,9 @@ jobs:
           sparse-checkout: |
             .github
 
-      - uses: fabasoad/yaml-json-xml-converter-action@main
+      - uses: fabasoad/data-format-converter-action@v0
         id: convert
         with:
-          path: ${{ inputs.yaml_file_path }}
+          input: ${{ inputs.yaml_file_path }}
           from: 'yaml'
           to: 'json'
