@@ -1,5 +1,4 @@
-include:
-  - itemA: foo
-    itemB: hoge
-  - itemA: bar
-    itemB: fuga
+- itemA: foo
+  itemB: hoge
+- itemA: bar
+  itemB: fuga
