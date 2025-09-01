@@ -26,6 +26,8 @@ jobs:
         uses: actions/download-artifact@v5.0.0
         with:
           name: artifact-test
-          path: ./gitkeep
+          path: ./dest/artifact
       - name: ls
-        run: ls -la
+        run: |
+          ls -la
+          ls -la ./dest
