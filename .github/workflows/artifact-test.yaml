@@ -1,0 +1,31 @@
+name: Artifact Test
+on:
+  workflow_dispatch:
+
+jobs:
+  artifact-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Artifact Test
+        run: touch test_artifact.txt
+      - name: upload artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: artifact-test
+          path: ./test_artifact.txt
+
+  download-test:
+    needs: artifact-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: download artifact
+        uses: actions/download-artifact@v5.0.0
+        with:
+          name: artifact-test
+          path: ./gitkeep
+      - name: ls
+        run: ls -la
